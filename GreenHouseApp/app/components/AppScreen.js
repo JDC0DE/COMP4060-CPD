@@ -14,7 +14,7 @@ function AppScreen({children, style, backgroundColor, barStyle}) {
         
         <SafeAreaView style = {[styles.screen, style]}>
                 {children}
-                <StatusBar translucent = {true} backgroundColor= {backgroundColor?backgroundColor: "transparent"} animated={true}  barStyle= {barStyle?barStyle:'light-content'}/>
+                <StatusBar translucent = {true} backgroundColor= {backgroundColor?backgroundColor: "transparent"} animated={true} barStyle= {barStyle?barStyle: 'light-content'}/>
         </SafeAreaView>
         
     );

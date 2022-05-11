@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Dimensions, TouchableOpacity,ImageBackground } from 'react-native';
+import { StyleSheet, View, Image, Dimensions, TouchableOpacity,ImageBackground, BackHandler, Alert } from 'react-native';
 import  Asset from 'expo-asset';
 import AppLoading from 'expo-app-loading'
 import {useNavigation} from '@react-navigation/native';
+import { useBackHandler } from "@react-native-community/hooks"
+import * as Animatable from 'react-native-animatable';
+//import Animated from 'react-native-reanimated';
+//import { TabGestureHandler, State } from 'react-native-gesture-handler';
 
 
 import AppScreen from '../components/AppScreen';
@@ -16,9 +20,30 @@ import AppFeatherIcon from '../components/AppAltIcon';
 
 
 
+
 const blurRadiusValue = Platform.OS === "android" ? 0.9 : 5.5;
 
 const {width, height} = Dimensions.get("window");
+
+// function withMyHook(Component){
+//     return function WrappedComponent(props){
+//         const backActionHandler = () => {
+//             Alert.alert("Alert!", "Are you sure you want to exit app?", [
+//               {
+//                 text: "Cancel",
+//                 onPress: () => null,
+//                 style: "cancel"
+//               },
+//               { text: "YES", onPress: () => BackHandler.exitApp() }
+//             ]);
+//             return true;
+//           };
+        
+//         //useBackHandler(backActionHandler);
+//         return <Component {...props} backActionHandler={backActionHandler}/>
+//     }
+// }
+
 
 function cacheImages(images) {
     return images.map(image => {
@@ -30,13 +55,46 @@ function cacheImages(images) {
     });
   }
 
-  export default class WelcomeScreen extends React.Component{
+//const {Value, event, block, cond, eq, set} = Animated
+
+export default class WelcomeScreen extends React.Component{
     constructor(props){
         super()
         this.state={
             isReady:false
         }
+
+        // this.buttonOpacity = new Value(1)
+
+        // this.onStateChange = Animated.event([
+        //     {
+        //         nativeEvent:({state})=>block([
+        //             cond(eq(state, State.END), set(this.buttonOpacity, 0))
+        //         ])
+        //     }
+        // ])
+        
     }
+
+    backAction = () => {
+        Alert.alert("Hold on!", "Are you sure you want to leave?", [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel"
+          },
+          { text: "YES", onPress: () => BackHandler.exitApp() }
+        ]);
+        return true;
+      };
+    
+      componentDidMount() {
+        BackHandler.addEventListener("hardwareBackPress", this.backAction);
+      }
+    
+      componentWillUnmount() {
+        BackHandler.removeEventListener("hardwareBackPress", this.backAction);
+      }
 
     async _loadAssetsAsync() {
         const imageAssets = cacheImages([
@@ -48,7 +106,10 @@ function cacheImages(images) {
         await Promise.all([...imageAssets]);
       }
 
+      
+
     render() {
+        const backActionHandler = this.props.backActionHandler;
         if (!this.state.isReady) {
             return (
               <AppLoading
@@ -58,14 +119,19 @@ function cacheImages(images) {
               />
             );
           }
-        return ( <AppScreen style={styles.container}>
+        return ( 
+        
+        /* <>{backActionHandler}</> */
+        <AppScreen style={styles.container}>
         <View style={{...StyleSheet.absoluteFill}}>
             <ImageBackground
             blurRadius={blurRadiusValue}
             source={require('../assets/pexels-scott-webb-305827.jpg')}
             style={styles.imageContainer}
             >
-            <Image
+            <Animatable.Image
+                animation="bounceInUp"
+                duration={1500}
                 source={require('../assets/GreenHouse_Logo_Updated.png')}
                 resizeMode= 'cover'
                 style={styles.logo}
@@ -73,6 +139,8 @@ function cacheImages(images) {
             </ImageBackground>
         </View>
         <View style={styles.buttonContainer}>
+            {/* <TabGestureHandler onHandlerStateChange={this.onStateChange}>
+            </TabGestureHandler> */}
             <AppButton children= "SIGN IN"/>
             <AppButton children= "REGISTER"/>
             <AppText style={styles.text}>Or Continue With</AppText>
@@ -90,6 +158,7 @@ function cacheImages(images) {
         </View>
 
     </AppScreen>
+    
     );
     }
 
@@ -145,4 +214,4 @@ const styles = StyleSheet.create({
     },
 })
 
-//export default withNavigation(WelcomeScreen);
+//export default withMyHook(WelcomeScreen);
