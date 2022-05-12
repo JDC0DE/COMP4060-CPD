@@ -16,6 +16,7 @@ import AppColors from '../config/AppColors';
 import AppText from '../components/AppText';
 import AppIcon from '../components/AppIcon';
 import AppFeatherIcon from '../components/AppAltIcon';
+import AppLogo from '../components/AppLogo';
 
 
 
@@ -129,13 +130,7 @@ export default class WelcomeScreen extends React.Component{
             source={require('../assets/pexels-scott-webb-305827.jpg')}
             style={styles.imageContainer}
             >
-            <Animatable.Image
-                animation="bounceInUp"
-                duration={1500}
-                source={require('../assets/GreenHouse_Logo_Updated.png')}
-                resizeMode= 'cover'
-                style={styles.logo}
-                />
+            <AppLogo animationType="bounceInDown"/>
             </ImageBackground>
         </View>
         <View style={styles.buttonContainer}>
@@ -206,12 +201,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
     },
 
-    logo:{
-        //flex: 1,
-        marginTop: 50,
-        height: '30%',
-        width: '100%',
-    },
+    
 })
 
 //export default withMyHook(WelcomeScreen);

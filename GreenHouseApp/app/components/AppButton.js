@@ -7,7 +7,7 @@ import AppColors from '../config/AppColors';
 import AppFonts from '../config/AppFonts';
 import AppText from './AppText';
 
-function AppButton({children, color = "otherColor_2", onPress}) {
+function AppButton({children, color = "otherColor_1", onPress}) {
     return (
         <TouchableOpacity onPress = {onPress} activeOpacity={0.8}>
             <View style = {[styles.button, {backgroundColor:AppColors[color]}, styles.shadow]}>

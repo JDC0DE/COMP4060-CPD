@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Image, ImageBackground } from 'react-native';
+import { StyleSheet, View, Image, ImageBackground, Dimensions, KeyboardAvoidingView } from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import AppButton from '../components/AppButton';
 
 import AppFeatherIcon from '../components/AppFeatherIcon';
+import AppLogo from '../components/AppLogo';
 import AppScreen from '../components/AppScreen';
 import AppText from '../components/AppText';
 import AppTextInput from '../components/AppTextInput';
@@ -12,8 +15,47 @@ import AppFonts from '../config/AppFonts';
 
 const blurRadiusValue = Platform.OS === "android" ? 0.9 : 5.5;
 const bgColor = <Image style={{flex:1}} blurRadius={blurRadiusValue} source={require('../assets/pexels-scott-webb-305827.jpg')}/>;
+const {width, height} = Dimensions.get("window");
 
 function LoginScreen(props) {
+
+    const [data, setData] = useState({
+        email: '',
+        password: '',
+        checkTextInputChange: false,
+        secureTextEntry: true,
+    });
+
+    const textInputChange = (values) => {
+        if( values.length != 0 ){
+            setData({
+                ...data,
+                email: values,
+                checkTextInputChange: true,
+            });      
+        }
+        else{
+            setData({
+                ...data,
+                email: values,
+                checkTextInputChange: false,
+            });     
+        }
+    }
+
+      const handlePasswordChange = (values) => {
+        setData({
+            ...data,
+            password: values,
+        })
+    }
+
+    const updateSecureTextEntry = () => {
+        setData({
+            ...data,
+            secureTextEntry: !data.secureTextEntry,
+        })
+    }
 
     return (
        <AppScreen style={{marginTop:0}}>
@@ -23,13 +65,16 @@ function LoginScreen(props) {
             style={styles.imageContainer}
             >
                 <View style={styles.headerContainer}>
+                    <AppLogo animationType="bounceInDown" style={{height:"100%"}}/>
+                    <AppText style={styles.headerText}>Welcome to the GreenHouse!</AppText>
 
                 </View>
-                <View style = {styles.footerContainer}>
+                
+                <Animatable.View style = {styles.footerContainer} animation='fadeInUpBig'>
                     <AppText style={styles.emailHeading}>Email</AppText>
-        
+
                     <AppTextInput
-                     //data = {data}
+                     dataTextInput = {data.checkTextInputChange}
                      name={"check-circle"}
                      featColor='green'
                      color={AppColors.secondaryColor}
@@ -39,7 +84,7 @@ function LoginScreen(props) {
                      placeholder="Email Address"
                      keyboardType="email-address"
                      textContentType="emailAddress"
-                     //onChangeText={(values) => textInputChange(values)}
+                     onChangeText={(values) => textInputChange(values)}
                     />
                     
                     <AppText style={styles.passwordHeading}>Password</AppText>
@@ -52,11 +97,18 @@ function LoginScreen(props) {
                      autoCorrect={false}
                      icon = "lock-outline"
                      placeholder="Password"
-                     secureTextEntry
+                     secureTextEntry = {data.secureTextEntry ? true: false}
+                     onChangeText={(values) => handlePasswordChange(values)}
                      textContentType="password"
-                    />  
-                    
-                </View>
+                     onPress={updateSecureTextEntry}
+                     dataSecure={data.secureTextEntry}
+                    /> 
+                    <View style = {styles.buttonContainer}>
+                        <AppButton children="REGISTER"/>
+                    </View>
+                   
+                </Animatable.View>
+            
             </ImageBackground>
            
        </AppScreen>
@@ -82,13 +134,19 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         
     },
+    buttonContainer:{
+        height: height/5,
+        justifyContent: 'space-evenly',
+        paddingHorizontal: 20,
+        paddingBottom: 20,
+    },
 
     emailHeading:{
         fontWeight: 'bold',
     },
 
     footerContainer:{
-        flex: 3,
+        flex: 1.5,
         backgroundColor: AppColors.otherColor_2,
         overflow: 'hidden',
         borderTopLeftRadius: 30,

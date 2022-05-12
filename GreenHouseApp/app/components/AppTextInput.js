@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, TextInput } from 'react-native';
+import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
 
@@ -8,55 +8,24 @@ import AppFonts from '../config/AppFonts';
 import AppFeatherIcon from './AppFeatherIcon';
 
 //custom component for text inputs intended for register/login as the design choice was to have only a line to indicate where to type
-function AppTextInput({ icon, color, featColor, name, ...otherProps}) {
-    const [data, setData] = useState({
-        email: '',
-        password: '',
-        checkTextInputChange: false,
-        secureTextEntry: true,
-    });
-
-    const textInputChange = (values) => {
-        if( values.length != 0 ){
-            setData({
-                ...data,
-                email: values,
-                checkTextInputChange: true,
-            });      
-        }
-        else{
-            setData({
-                ...data,
-                email: values,
-                checkTextInputChange: false,
-            });     
-        }
-    }
-
-    const handlePasswordChange = (values) => {
-        setData({
-            ...data,
-            password: values,
-        })
-    }
-
-    const updateSecureTextEntry = () => {
-        setData({
-            ...data,
-            secureTextEntry: !data.secureTextEntry,
-        })
-    }
+function AppTextInput({ onPress, dataTextInput, dataSecure, icon, color, featColor, name, ...otherProps}) {
 
     return (
        <View style = {styles.container}>
            {icon && <MaterialCommunityIcons name = {icon} color = {color?color: AppColors.black} size ={22}/>}
-           <TextInput style ={styles.textInput} onChangeText={(values) => textInputChange(values)} {...otherProps}/>
+           <TextInput style ={styles.textInput} {...otherProps}/>
            
-           {data.checkTextInputChange?
+           {dataTextInput?
            name=="check-circle" && <Animatable.View animation='bounceIn'>
                <AppFeatherIcon name={name} iconColor = {featColor} size={30}/></Animatable.View>
             :null}
-            {name!="check-circle" && <AppFeatherIcon name={name} iconColor = {featColor} size={30}/>}
+            {name == "eye-off"  && <TouchableOpacity onPress={onPress}>
+                {dataSecure?
+                <AppFeatherIcon name={"eye-off"} iconColor = {featColor} size={30}/>:
+                <AppFeatherIcon name={"eye"} iconColor = {featColor} size={30}/>
+                    }
+                </TouchableOpacity>}
+            {name!="check-circle" && name!="eye-off" && <AppFeatherIcon name={name} iconColor = {featColor} size={30}/>}
        </View>
     );
 }
