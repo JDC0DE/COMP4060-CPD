@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import { StyleSheet, View, Image, ImageBackground, Dimensions, KeyboardAvoidingView } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import AppButton from '../components/AppButton';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
 import AppFeatherIcon from '../components/AppFeatherIcon';
 import AppLogo from '../components/AppLogo';
@@ -16,6 +18,18 @@ import AppFonts from '../config/AppFonts';
 const blurRadiusValue = Platform.OS === "android" ? 0.9 : 5.5;
 const bgColor = <Image style={{flex:1}} blurRadius={blurRadiusValue} source={require('../assets/pexels-scott-webb-305827.jpg')}/>;
 const {width, height} = Dimensions.get("window");
+const schema = yup.object().shape(
+    {
+        email: yup.string().required().email().label("email"),
+        password: yup.string().required().min(4).label("password"),
+    }
+);
+
+// const validateUser = ({email,password}) => {
+//     return(
+        
+//     );
+// }
 
 function LoginScreen(props) {
 
@@ -57,6 +71,9 @@ function LoginScreen(props) {
         })
     }
 
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
     return (
        <AppScreen style={{marginTop:0}}>
            <ImageBackground
@@ -70,7 +87,24 @@ function LoginScreen(props) {
 
                 </View>
                 
+                <Formik
+                initialValues={{email:'', password:'',}}
+                onSubmit = {(values, {resetForm}) => {
+                    if(values){
+                        resetForm();
+                        console.log(values);
+                    } else{
+                        resetForm();
+                    }
+                }
+            }
+                validationSchema={schema}
+                >
+                {({values, handleChange, handleSubmit, errors, setFieldTouched, touched, handleReset }) => (
+                <>
+                
                 <Animatable.View style = {styles.footerContainer} animation='fadeInUpBig'>
+                <KeyboardAvoidingView behavior={'height'} enabled ={true}> 
                     <AppText style={styles.emailHeading}>Email</AppText>
 
                     <AppTextInput
@@ -84,9 +118,11 @@ function LoginScreen(props) {
                      placeholder="Email Address"
                      keyboardType="email-address"
                      textContentType="emailAddress"
-                     onChangeText={(values) => textInputChange(values)}
+                     //value={values.email}
+                     onBlur = {() => setFieldTouched("email")}
+                     onChangeText={(values) => {textInputChange(values), setEmail(values), handleChange("email")}}
                     />
-                    
+                    {touched.email && <AppText style={{color: "red", fontSize:14}}>{errors.email}</AppText>}
                     <AppText style={styles.passwordHeading}>Password</AppText>
                     
                     <AppTextInput
@@ -98,16 +134,25 @@ function LoginScreen(props) {
                      icon = "lock-outline"
                      placeholder="Password"
                      secureTextEntry = {data.secureTextEntry ? true: false}
-                     onChangeText={(values) => handlePasswordChange(values)}
+                     //value={values.password}
+                     onBlur = {() => setFieldTouched("password")}
+                     onChangeText={(values) => {handlePasswordChange(values); setPassword(values); handleChange("password");}}
                      textContentType="password"
                      onPress={updateSecureTextEntry}
                      dataSecure={data.secureTextEntry}
                     /> 
+                    {touched.password && <AppText style={{color: "red", fontSize:14}}>{errors.password}</AppText>}
                     <View style = {styles.buttonContainer}>
-                        <AppButton children="REGISTER"/>
+                        <AppButton children="REGISTER" onPress={ handleSubmit}/>
                     </View>
-                   
+                    </KeyboardAvoidingView>     
                 </Animatable.View>
+                
+                </> 
+
+                )}
+
+                </Formik>
             
             </ImageBackground>
            
@@ -134,6 +179,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         
     },
+    
     buttonContainer:{
         height: height/5,
         justifyContent: 'space-evenly',
