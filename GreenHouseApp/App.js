@@ -8,6 +8,8 @@ import AuthNavigator from './app/navigation/AuthNavigator';
 import SplashScreen from './app/screens/SplashScreen';
 import WelcomeScreen from './app/screens/WelcomeScreen';
 import LoginScreen from './app/screens/LoginScreen';
+import RegisterScreen from './app/screens/RegisterScreen';
+
 
 
 
@@ -16,7 +18,8 @@ export default function App() {
   //  <NavigationContainer>
   //     <AuthNavigator/>
   //  </NavigationContainer>
-  <LoginScreen></LoginScreen>
+  //<LoginScreen></LoginScreen>
+  <RegisterScreen></RegisterScreen>
   
         //<SplashScreen></SplashScreen>
         //<WelcomeScreen></WelcomeScreen>

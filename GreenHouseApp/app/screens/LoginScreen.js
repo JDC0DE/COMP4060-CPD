@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Image, ImageBackground, Dimensions, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, Image, ImageBackground, Dimensions, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import AppButton from '../components/AppButton';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import {useNavigation} from '@react-navigation/native';
 
+import AppButton from '../components/AppButton';
 import AppFeatherIcon from '../components/AppFeatherIcon';
 import AppLogo from '../components/AppLogo';
 import AppScreen from '../components/AppScreen';
@@ -12,6 +13,7 @@ import AppText from '../components/AppText';
 import AppTextInput from '../components/AppTextInput';
 import AppColors from '../config/AppColors';
 import AppFonts from '../config/AppFonts';
+import AppIcon from '../components/AppIcon';
 
 
 
@@ -21,7 +23,7 @@ const {width, height} = Dimensions.get("window");
 const schema = yup.object().shape(
     {
         email: yup.string().required().email().label("email"),
-        password: yup.string().required().min(4).label("password"),
+        password: yup.string().required().min(5).label("password"),
     }
 );
 
@@ -31,7 +33,7 @@ const schema = yup.object().shape(
 //     );
 // }
 
-function LoginScreen(props) {
+function LoginScreen({navigation}) {
 
     const [data, setData] = useState({
         email: '',
@@ -40,7 +42,7 @@ function LoginScreen(props) {
         secureTextEntry: true,
     });
 
-    const textInputChange = (values) => {
+    const handleEmailChange = (values) => {
         if( values.length != 0 ){
             setData({
                 ...data,
@@ -82,8 +84,18 @@ function LoginScreen(props) {
             style={styles.imageContainer}
             >
                 <View style={styles.headerContainer}>
-                    <AppLogo animationType="bounceInDown" style={{height:"100%"}}/>
-                    <AppText style={styles.headerText}>Welcome to the GreenHouse!</AppText>
+                    <View style ={styles.backContainer}>
+                        <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
+                            <AppIcon name={"keyboard-backspace"} iconColor={AppColors.otherColor_2} size={60}/>
+                        </TouchableOpacity>
+                    </View>
+                    <View style ={styles.welcomeLogoContainer}>
+                        <AppLogo animationType="bounceInDown" style={{height:"100%"}}/>
+                    </View>
+                    <Animatable.View style={styles.welcomeText} animation='fadeInLeftBig'>
+                            <AppText style={styles.headerText}>Welcome Back!</AppText>
+                    </Animatable.View>
+
 
                 </View>
                 
@@ -120,7 +132,7 @@ function LoginScreen(props) {
                      textContentType="emailAddress"
                      //value={values.email}
                      onBlur = {() => setFieldTouched("email")}
-                     onChangeText={(values) => {textInputChange(values), setEmail(values), handleChange("email")}}
+                     onChangeText={(values) => {handleEmailChange(values); setEmail(values); handleChange("email")(values);}}
                     />
                     {touched.email && <AppText style={{color: "red", fontSize:14}}>{errors.email}</AppText>}
                     <AppText style={styles.passwordHeading}>Password</AppText>
@@ -136,15 +148,18 @@ function LoginScreen(props) {
                      secureTextEntry = {data.secureTextEntry ? true: false}
                      //value={values.password}
                      onBlur = {() => setFieldTouched("password")}
-                     onChangeText={(values) => {handlePasswordChange(values); setPassword(values); handleChange("password");}}
+                     onChangeText={(values) => {handlePasswordChange(values); setPassword(values); handleChange("password")(values);}}
                      textContentType="password"
                      onPress={updateSecureTextEntry}
                      dataSecure={data.secureTextEntry}
                     /> 
                     {touched.password && <AppText style={{color: "red", fontSize:14}}>{errors.password}</AppText>}
                     <View style = {styles.buttonContainer}>
-                        <AppButton children="REGISTER" onPress={ handleSubmit}/>
+                        <AppButton children="SIGN IN" onPress={ handleReset}/>
                     </View>
+                    <TouchableOpacity>
+                        <AppText style={styles.passwordCheckText}>Forgot your password?</AppText>
+                    </TouchableOpacity>
                     </KeyboardAvoidingView>     
                 </Animatable.View>
                 
@@ -161,38 +176,27 @@ function LoginScreen(props) {
 }
 
 const styles = StyleSheet.create({
-    imageContainer:{
-        flex:1,
-        height: null,
-        width: null,
-        
-        
-        
-    },
-    headerContainer:{
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingBottom: 50, 
+    backContainer:{
+        marginTop: 30,
+        flexDirection: 'row',
+       
+        //marginTop: ,
     },
 
-    passwordHeading:{
-        fontWeight: 'bold',
-        
-    },
-    
     buttonContainer:{
         height: height/5,
         justifyContent: 'space-evenly',
         paddingHorizontal: 20,
         paddingBottom: 20,
     },
-
+    
     emailHeading:{
         fontWeight: 'bold',
+        color: AppColors.black,
     },
-
+    
     footerContainer:{
-        flex: 1.5,
+        flex: 1.75,
         backgroundColor: AppColors.otherColor_2,
         overflow: 'hidden',
         borderTopLeftRadius: 30,
@@ -200,6 +204,53 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 30,
         
+    },
+    headerContainer:{
+        flex: 1,
+        paddingHorizontal: 20,
+        marginTop: 20,
+        paddingBottom: 50, 
+    },
+
+    headerText:{
+        color: AppColors.otherColor_2,
+        fontWeight: 'bold',
+        fontStyle: 'italic',
+        fontSize: 22,
+        
+    },
+    
+    imageContainer:{
+        flex:1,
+        height: null,
+        width: null,
+        
+    },
+    passwordCheckText:{
+        opacity: 0.7,
+        color: AppColors.secondaryColor,
+        textDecorationLine: 'underline',
+        alignSelf: 'center',
+        fontSize: 16,
+        marginTop: -20,
+        
+    },
+    passwordHeading:{
+        fontWeight: 'bold',
+        color: AppColors.black,
+        
+    },
+    welcomeLogoContainer:{
+        flex: 1,
+        //backgroundColor: "white",
+        marginBottom: 40,
+        justifyContent: 'center',
+    },
+    welcomeText:{
+        //backgroundColor: 'white',
+        marginBottom: -30,
+        //height: 50,
+       
     },
 
 
