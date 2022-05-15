@@ -9,6 +9,8 @@ import SplashScreen from './app/screens/SplashScreen';
 import WelcomeScreen from './app/screens/WelcomeScreen';
 import LoginScreen from './app/screens/LoginScreen';
 import RegisterScreen from './app/screens/RegisterScreen';
+import EulaScreen from './app/screens/EulaScreen';
+
 
 
 
@@ -18,8 +20,9 @@ export default function App() {
   //  <NavigationContainer>
   //     <AuthNavigator/>
   //  </NavigationContainer>
-  //<LoginScreen></LoginScreen>
-  <RegisterScreen></RegisterScreen>
+  <LoginScreen></LoginScreen>
+  //<RegisterScreen></RegisterScreen>
+  //<EulaScreen></EulaScreen>
   
         //<SplashScreen></SplashScreen>
         //<WelcomeScreen></WelcomeScreen>

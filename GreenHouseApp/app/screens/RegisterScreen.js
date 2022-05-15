@@ -15,6 +15,7 @@ import AppTextInput from '../components/AppTextInput';
 import AppColors from '../config/AppColors';
 import AppFonts from '../config/AppFonts';
 import AppIcon from '../components/AppIcon';
+import AppBackButton from '../components/AppBackButton';
 
 
 
@@ -29,7 +30,7 @@ const schema = yup.object().shape(
     }
 );
 
-function RegisterScreen(props) {
+function RegisterScreen({navigation}) {
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -91,6 +92,23 @@ function RegisterScreen(props) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
+    useEffect(() => {
+        const stopListener = auth.onAuthStateChanged(user => {
+            if (user){
+                navigation.navigate("Login")
+            }
+        })
+        return stopListener
+    }, [])
+
+    const handleRegister = () => {
+        auth.createUserWithEmailAndPassword(email, password).then(userDetails => {
+            const user = userDetails.user;
+            console.log("Registered as:",user.email);
+        })
+        .catch(error => alert(error.message))
+    }
+
     return (
         
         <AppScreen style={{marginTop:0}}>
@@ -105,11 +123,13 @@ function RegisterScreen(props) {
                 
                 
                 <View style={styles.headerContainer}>
-                    <View style ={styles.backContainer}>
+                    {/* <View style ={styles.backContainer}>
                         <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
                             <AppIcon name={"keyboard-backspace"} iconColor={AppColors.otherColor_2} size={60}/>
                         </TouchableOpacity>
-                    </View>
+                        
+                    </View> */}
+                    <AppBackButton navigation={navigation} destination={"Welcome"}/>
                     <View style ={styles.welcomeLogoContainer}>
                         <AppLogo animationType="bounceInDown" style={{height:"100%"}}/>
                     </View>
@@ -197,7 +217,7 @@ function RegisterScreen(props) {
                     /> 
                     {touched.password && <AppText style={{color: "red", fontSize:14}}>{errors.password}</AppText>}
                     <View style = {styles.buttonContainer}>
-                        <AppButton children="REGISTER" onPress={ handleReset}/>
+                        <AppButton children="REGISTER" onPress={ handleRegister}/>
                     </View>
                     <TouchableOpacity>
                         <AppText style={styles.tocText}>By signing up you agree to our Terms of Use</AppText>
@@ -218,12 +238,12 @@ function RegisterScreen(props) {
 }
 
 const styles = StyleSheet.create({
-    backContainer:{
-        marginTop: 30,
-        //flexDirection: 'row',
+    // backContainer:{
+    //     marginTop: 30,
+    //     //flexDirection: 'row',
        
-        //marginTop: ,
-    },
+    //     //marginTop: ,
+    // },
 
     buttonContainer:{
         height: height/5,

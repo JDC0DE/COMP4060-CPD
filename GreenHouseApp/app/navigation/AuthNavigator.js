@@ -5,6 +5,10 @@ import SplashScreen from '../screens/SplashScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import EulaScreen from '../screens/EulaScreen';
+import ListingScreen from '../screens/ListingScreen';
+
+
 
 
 
@@ -18,6 +22,8 @@ const AuthNavigator = () => (
         <AppStack.Screen name='Welcome' component={WelcomeScreen}/>
         <AppStack.Screen name='Login' component={LoginScreen}/>
         <AppStack.Screen name='Register' component={RegisterScreen}/>
+        <AppStack.Screen name='Listing' component={ListingScreen}/>
+        <AppStack.Screen name='Eula' component={EulaScreen}/>
     </AppStack.Navigator>
 )
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Image, ImageBackground, Dimensions, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Formik } from 'formik';
@@ -14,6 +14,8 @@ import AppTextInput from '../components/AppTextInput';
 import AppColors from '../config/AppColors';
 import AppFonts from '../config/AppFonts';
 import AppIcon from '../components/AppIcon';
+import { auth } from '../config/dataHandler/firebaseDataHandler';
+
 
 
 
@@ -26,6 +28,7 @@ const schema = yup.object().shape(
         password: yup.string().required().min(5).label("password"),
     }
 );
+
 
 // const validateUser = ({email,password}) => {
 //     return(
@@ -73,8 +76,30 @@ function LoginScreen({navigation}) {
         })
     }
 
+    //state variables - uses hooks to grab users input to set email and password
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+
+    //listener for listening to firebase to see if any users are logged in so we can navigate when they are
+    // if we have a user then we are going to use navigation to go to listings
+    //when leaving the screen we will stop pinging the listener 
+    useEffect(() => {
+        const stopListener = auth.onAuthStateChanged(user => {
+            if (user){
+                navigation.navigate("Listing")
+            }
+        })
+        return stopListener
+    }, [])
+
+    const handleSignIn = () => {
+        auth.signInWithEmailAndPassword(email, password).then(userDetails => {
+            const user = userDetails.user;
+            console.log("Signed in as:",user.email);
+        })
+        .catch(error => alert(error.message))
+    
+    }
 
     return (
        <AppScreen style={{marginTop:0}}>
@@ -155,7 +180,7 @@ function LoginScreen({navigation}) {
                     /> 
                     {touched.password && <AppText style={{color: "red", fontSize:14}}>{errors.password}</AppText>}
                     <View style = {styles.buttonContainer}>
-                        <AppButton children="SIGN IN" onPress={ handleReset}/>
+                        <AppButton children="SIGN IN" onPress={ handleSignIn }/>
                     </View>
                     <TouchableOpacity>
                         <AppText style={styles.passwordCheckText}>Forgot your password?</AppText>

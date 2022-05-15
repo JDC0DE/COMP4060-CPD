@@ -1,4 +1,4 @@
-const EulaText = `END USER LICENCE AGREEMENT\n
+const AppEulaText = `END USER LICENCE AGREEMENT\n
 Last updated May 14, 2022\n
 Green House is licensed to You (End-User) by JDCODE Inc, located and registered at 2 George Street, Sydney, New South Wales 2000, Australia ('Licensor'), for use only under the terms of this Licence Agreement. Our VAT number is 46891472806.
 By downloading the Licensed Application from Apple's software distribution platform ('App Store') and Google's software distribution platform ('Play Store'), and any update thereto (as permitted by this Licence Agreement), You indicate that you agree to be bound by all of the terms and conditions of this Licence Agreement, and that You accept this Licence Agreement. App Store and Play Store are referred to in this Licence Agreement as 'Services!
@@ -109,4 +109,4 @@ This Licence Agreement is governed by the laws of Australia excluding its confli
 17.1 If any of the terms of this agreement should be or become invalid, the validity of the remaining provisions shall not be affected. Invalid terms will be replaced by valid ones formulated in a way that will achieve the primary purpose.
 17.2 Collateral agreements, changes and amendments are only valid if laid down in writing. The preceding clause can only be waived in writing.\n
 `
-export default EulaText;
+export default AppEulaText;
