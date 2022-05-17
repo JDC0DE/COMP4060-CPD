@@ -10,6 +10,8 @@ import WelcomeScreen from './app/screens/WelcomeScreen';
 import LoginScreen from './app/screens/LoginScreen';
 import RegisterScreen from './app/screens/RegisterScreen';
 import EulaScreen from './app/screens/EulaScreen';
+import NotificationsScreen from './app/screens/NotificationsScreen';
+
 
 
 
@@ -20,7 +22,8 @@ export default function App() {
   //  <NavigationContainer>
   //     <AuthNavigator/>
   //  </NavigationContainer>
-  <LoginScreen></LoginScreen>
+  <NotificationsScreen></NotificationsScreen>
+  //<LoginScreen></LoginScreen>
   //<RegisterScreen></RegisterScreen>
   //<EulaScreen></EulaScreen>
   

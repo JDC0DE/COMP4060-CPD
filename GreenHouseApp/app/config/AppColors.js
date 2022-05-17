@@ -7,4 +7,5 @@ export default{
     otherColor_2: '#EAF4F4', //Azure X 11 Web Color
     otherColor_3: '#F6FFF8', //Mint Cream
     fbColor: '#4267B2', //Facebook Blue Color
+    swipeDelete: '#ff5252', //lighter red
 }

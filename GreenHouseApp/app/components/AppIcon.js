@@ -5,10 +5,10 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
 import AppColors from '../config/AppColors';
 
 
-function AppIcon({name, size=40, iconColor, backgroundColor, elevation, image}) {
+function AppIcon({name, size=40, iconColor, backgroundColor, elevation, image, position}) {
     return (
     
-        <View style = {{width: size, height: size, backgroundColor, borderRadius: size/2, alignItems: 'center', justifyContent: 'center', elevation, shadowColor: AppColors.black}}>
+        <View style = {{width: size, height: size, backgroundColor, borderRadius: size/2, alignItems: 'center', justifyContent: 'center', elevation, shadowColor: AppColors.black, marginLeft: position}}>
             {image && isFinite(image)? <Image source ={image} style ={styles.image}/>: console.log()}
             <MaterialCommunityIcons name ={name} size = {size*0.6} color ={iconColor}/>
         </View>
