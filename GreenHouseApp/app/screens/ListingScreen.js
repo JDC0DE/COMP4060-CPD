@@ -12,7 +12,6 @@ const handleSignOut = () => {
     })
     .catch(error => alert(error.message))
 }
-
     return (
         <AppScreen>
 

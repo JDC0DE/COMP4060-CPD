@@ -15,6 +15,7 @@ import AppColors from '../config/AppColors';
 import AppFonts from '../config/AppFonts';
 import AppIcon from '../components/AppIcon';
 import { auth } from '../config/dataHandler/firebaseDataHandler';
+import AppBackButton from '../components/AppBackButton';
 
 
 
@@ -25,7 +26,7 @@ const {width, height} = Dimensions.get("window");
 const schema = yup.object().shape(
     {
         email: yup.string().required().email().label("email"),
-        password: yup.string().required().min(5).label("password"),
+        password: yup.string().required().min(6).label("password"),
     }
 );
 
@@ -36,7 +37,8 @@ const schema = yup.object().shape(
 //     );
 // }
 
-function LoginScreen({navigation}) {
+function LoginScreen({}) {
+    const navigation = useNavigation();
 
     const [data, setData] = useState({
         email: '',
@@ -109,11 +111,9 @@ function LoginScreen({navigation}) {
             style={styles.imageContainer}
             >
                 <View style={styles.headerContainer}>
-                    <View style ={styles.backContainer}>
-                        <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
-                            <AppIcon name={"keyboard-backspace"} iconColor={AppColors.otherColor_2} size={60}/>
-                        </TouchableOpacity>
-                    </View>
+                   
+                    <AppBackButton  onPress={()=> navigation.navigate('Welcome')}/>
+                    
                     <View style ={styles.welcomeLogoContainer}>
                         <AppLogo animationType="bounceInDown" style={{height:"100%"}}/>
                     </View>
@@ -201,13 +201,6 @@ function LoginScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
-    backContainer:{
-        marginTop: 30,
-        flexDirection: 'row',
-       
-        //marginTop: ,
-    },
-
     buttonContainer:{
         height: height/5,
         justifyContent: 'space-evenly',

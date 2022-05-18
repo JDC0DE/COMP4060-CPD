@@ -14,7 +14,10 @@ function EulaScreen({navigation}) {
     return (
         <AppScreen style={styles.container} backgroundColor={AppColors.otherColor_3} barStyle={"dark-content"}>
             <View style={styles.headerContainer}>
-                <AppBackButton navigation={navigation} destination={'Register'} iconColor={AppColors.black}/>
+                <AppBackButton onPress={()=>navigation.navigate('Register')} iconColor={AppColors.black}/>
+            </View>
+            <View style={{paddingBottom: 30}}>
+                <AppText style={styles.title}>END USER LICENCE AGREEMENT</AppText>
             </View>
             <ScrollView style={styles.footerContainer} fadingEdgeLength={100}>
                 <AppText style={styles.text}>{AppEulaText}</AppText>
@@ -35,6 +38,11 @@ const styles = StyleSheet.create({
     footerContainer:{
         flex:7,
     
+    },
+
+    title:{
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
 
     text:{

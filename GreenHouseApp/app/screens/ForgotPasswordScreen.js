@@ -1,4 +1,5 @@
 import React from 'react';
+import {  } from 'react-native';
 
 function ForgotPasswordScreen(props) {
     return (
@@ -7,7 +8,9 @@ function ForgotPasswordScreen(props) {
         </div>
     );
 }
+
 const styles = StyleSheet.create({
     
 })
+
 export default ForgotPasswordScreen;

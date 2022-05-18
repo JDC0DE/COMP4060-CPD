@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Image, ImageBackground, Dimensions, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Formik } from 'formik';
@@ -16,6 +16,7 @@ import AppColors from '../config/AppColors';
 import AppFonts from '../config/AppFonts';
 import AppIcon from '../components/AppIcon';
 import AppBackButton from '../components/AppBackButton';
+import { auth } from '../config/dataHandler/firebaseDataHandler';
 
 
 
@@ -26,7 +27,7 @@ const schema = yup.object().shape(
     {
         name: yup.string().required().label("name"),
         email: yup.string().required().email().label("email"),
-        password: yup.string().required().min(5).label("password"),
+        password: yup.string().required().min(6).label("password"),
     }
 );
 
@@ -105,6 +106,7 @@ function RegisterScreen({navigation}) {
         auth.createUserWithEmailAndPassword(email, password).then(userDetails => {
             const user = userDetails.user;
             console.log("Registered as:",user.email);
+            navigation.navigate("Login")
         })
         .catch(error => alert(error.message))
     }
@@ -129,7 +131,7 @@ function RegisterScreen({navigation}) {
                         </TouchableOpacity>
                         
                     </View> */}
-                    <AppBackButton navigation={navigation} destination={"Welcome"}/>
+                    <AppBackButton onPress={()=> navigation.navigate('Welcome')}/>
                     <View style ={styles.welcomeLogoContainer}>
                         <AppLogo animationType="bounceInDown" style={{height:"100%"}}/>
                     </View>
@@ -219,8 +221,11 @@ function RegisterScreen({navigation}) {
                     <View style = {styles.buttonContainer}>
                         <AppButton children="REGISTER" onPress={ handleRegister}/>
                     </View>
-                    <TouchableOpacity>
-                        <AppText style={styles.tocText}>By signing up you agree to our Terms of Use</AppText>
+                    <TouchableOpacity onPress={()=>navigation.navigate('Eula')}>
+                        <View style={{flex:1}}>
+                            <AppText style={styles.tocText}>By signing up you agree to our Terms of Use</AppText>
+
+                        </View>
                     </TouchableOpacity>
                     </KeyboardAwareScrollView>
                 </Animatable.View>

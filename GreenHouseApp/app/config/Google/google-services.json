@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1002396336307",
+    "project_id": "greenhouse-datahandler",
+    "storage_bucket": "greenhouse-datahandler.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002396336307:android:beb73ab22e88083910f0c6",
+        "android_client_info": {
+          "package_name": "com.greenhouse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002396336307-io3jpdln42hi36kd42bnnu6vmikvf00v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.greenhouse",
+            "certificate_hash": "95f10c9380131369d1392ab0a6bf34b2ff9d428f"
+          }
+        },
+        {
+          "client_id": "1002396336307-o56ae81o2kkt2n350c1rrm9vo8a0p6e4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4HgSbfSg4xVOzkKcVXfejqVyOmsEIRhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002396336307-o56ae81o2kkt2n350c1rrm9vo8a0p6e4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

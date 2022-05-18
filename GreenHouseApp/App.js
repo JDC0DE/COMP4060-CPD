@@ -19,10 +19,10 @@ import NotificationsScreen from './app/screens/NotificationsScreen';
 
 export default function App() {
   return (
-  //  <NavigationContainer>
-  //     <AuthNavigator/>
-  //  </NavigationContainer>
-  <NotificationsScreen></NotificationsScreen>
+   <NavigationContainer>
+      <AuthNavigator/>
+   </NavigationContainer>
+  //<NotificationsScreen></NotificationsScreen>
   //<LoginScreen></LoginScreen>
   //<RegisterScreen></RegisterScreen>
   //<EulaScreen></EulaScreen>

@@ -8,10 +8,10 @@ import AppColors from '../config/AppColors';
 
 
 
-function AppBackButton({navigation, destination, style, iconColor}) {
+function AppBackButton({onPress, style, iconColor}) {
     return (
     <View style ={[styles.backContainer, style]}>
-        <TouchableOpacity onPress={() => navigation.navigate(destination)}>
+        <TouchableOpacity onPress={onPress}>
             <AppIcon name={"keyboard-backspace"} iconColor={iconColor && iconColor?iconColor:AppColors.otherColor_2} size={60}/>
         </TouchableOpacity>
     </View>

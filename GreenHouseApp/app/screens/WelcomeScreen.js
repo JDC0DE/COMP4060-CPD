@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Dimensions, TouchableOpacity,ImageBackground, BackHandler, Alert } from 'react-native';
+import { StyleSheet, View, Image, Dimensions, TouchableOpacity,ImageBackground, BackHandler, Alert, Platform } from 'react-native';
 import  Asset from 'expo-asset';
 import AppLoading from 'expo-app-loading'
 import {useNavigation} from '@react-navigation/native';
 import { useBackHandler } from "@react-native-community/hooks"
 import * as Animatable from 'react-native-animatable';
+//import * as Google from 'expo-google-app-auth';
+//import * as Google from 'expo-auth-session/providers/google';
+//import { GoogleSignin } from '@react-native-google-signin/google-signin';
 //import Animated from 'react-native-reanimated';
 //import { TabGestureHandler, State } from 'react-native-gesture-handler';
+
 
 
 import AppScreen from '../components/AppScreen';
@@ -58,6 +62,33 @@ function cacheImages(images) {
 
 //const {Value, event, block, cond, eq, set} = Animated
 
+// const handleGoogleSignIn = () => {
+//       const config = {
+//       iosClientId: `659635831658-k2p6jsd4l15n9l1jc0i6rsrv6f1rkfq8.apps.googleusercontent.com`, 
+//       androidClientId: `659635831658-rotb50m6d3t59bmn7e0ch93jmk7f20be.apps.googleusercontent.com`,
+//       scopes: ['profile', 'email'],
+//     };
+    
+  
+// }
+
+// async function onGoogleButtonPress() {
+//   // Get the users ID token
+//   const { idToken } = await GoogleSignin.signIn();
+
+//   // Create a Google credential with the token
+//   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+//   // Sign-in the user with the credential
+//   return auth().signInWithCredential(googleCredential);
+// }
+
+// GoogleSignin.configure({
+//       webClientId: "1002396336307-o56ae81o2kkt2n350c1rrm9vo8a0p6e4.apps.googleusercontent.com",
+//     });
+
+//onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))} - for on press
+
 export default class WelcomeScreen extends React.Component{
     constructor(props){
         super()
@@ -77,6 +108,12 @@ export default class WelcomeScreen extends React.Component{
         
     }
 
+    
+
+    // GoogleSignin.configure({
+    //   webClientId: "1002396336307-o56ae81o2kkt2n350c1rrm9vo8a0p6e4.apps.googleusercontent.com",
+    // });
+
     backAction = () => {
         Alert.alert("Hold on!", "Are you sure you want to leave?", [
           {
@@ -84,7 +121,7 @@ export default class WelcomeScreen extends React.Component{
             onPress: () => null,
             style: "cancel"
           },
-          { text: "YES", onPress: () => BackHandler.exitApp() }
+          { text: "YES", onPress: () => {BackHandler.exitApp(); this.componentWillUnmount();} }
         ]);
         return true;
       };
@@ -108,7 +145,7 @@ export default class WelcomeScreen extends React.Component{
       }
 
       
-
+    
     render() {
         const backActionHandler = this.props.backActionHandler;
         if (!this.state.isReady) {
@@ -136,8 +173,9 @@ export default class WelcomeScreen extends React.Component{
         <View style={styles.buttonContainer}>
             {/* <TabGestureHandler onHandlerStateChange={this.onStateChange}>
             </TabGestureHandler> */}
-            <AppButton children= "SIGN IN"/>
-            <AppButton children= "REGISTER"/>
+            <AppButton children= "SIGN IN" onPress={() => this.props.navigation.navigate('Login')}/>
+            <AppButton children= "REGISTER" onPress={() => this.props.navigation.navigate('Register')}/>
+           
             <AppText style={styles.text}>Or Continue With</AppText>
             <View style={styles.iconContainer}>
                 <TouchableOpacity>
@@ -147,6 +185,7 @@ export default class WelcomeScreen extends React.Component{
                     <AppFeatherIcon name={"facebook-f"} backgroundColor={AppColors.fbColor} iconColor={AppColors.white} size={50} elevation={20}/>
                 </TouchableOpacity>
             </View>
+            
             
 
             
