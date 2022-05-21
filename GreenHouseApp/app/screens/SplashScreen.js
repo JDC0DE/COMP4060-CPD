@@ -38,11 +38,11 @@ function SplashScreen() {
 const styles = StyleSheet.create({
     splashContainer:{
         flex: 1,
-        backgroundColor: AppColors.otherColor_2,
+        backgroundColor: AppColors.otherColor_3,
     },
 
     backgroundColor:{
-        backgroundColor: AppColors.otherColor_2,
+        backgroundColor: AppColors.otherColor_3,
 
     },
     

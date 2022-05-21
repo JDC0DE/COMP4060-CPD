@@ -93,6 +93,7 @@ function NotificationsScreen({navigation}) {
 const styles = StyleSheet.create({
     container:{
         backgroundColor: AppColors.otherColor_3,
+        marginTop: 0,
     },
 
     titleText:{

@@ -167,7 +167,10 @@ export default class WelcomeScreen extends React.Component{
             source={require('../assets/pexels-scott-webb-305827.jpg')}
             style={styles.imageContainer}
             >
-            <AppLogo animationType="bounceInDown"/>
+            <View style ={styles.welcomeLogoContainer}>
+              <AppLogo animationType="bounceInDown"/>
+
+            </View>
             </ImageBackground>
         </View>
         <View style={styles.buttonContainer}>
@@ -226,6 +229,15 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         //backgroundColor: AppColors.white,
 
+    },
+
+    welcomeLogoContainer:{
+        flex:1,
+        flexDirection: 'column-reverse',
+        alignItems: 'flex-end',
+        //backgroundColor: "white",
+        marginTop: 30,
+        justifyContent: 'flex-end',
     },
 
     text:{

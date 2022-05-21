@@ -14,8 +14,9 @@ import AppTextInput from '../components/AppTextInput';
 import AppColors from '../config/AppColors';
 import AppFonts from '../config/AppFonts';
 import AppIcon from '../components/AppIcon';
-import { auth } from '../config/dataHandler/firebaseDataHandler';
+import { auth, updateProfile } from '../config/dataHandler/firebaseDataHandler';
 import AppBackButton from '../components/AppBackButton';
+import AppTextButton from '../components/AppTextButton';
 
 
 
@@ -88,6 +89,13 @@ function LoginScreen({}) {
     useEffect(() => {
         const stopListener = auth.onAuthStateChanged(user => {
             if (user){
+                updateProfile(auth.currentUser, {
+                    displayName: window.newUserName
+                }).then(()=> {
+                    console.log(auth.currentUser.displayName);
+                }).catch((error)=>{
+                    console.log(error);
+                });
                 navigation.navigate("Listing")
             }
         })
@@ -182,9 +190,8 @@ function LoginScreen({}) {
                     <View style = {styles.buttonContainer}>
                         <AppButton children="SIGN IN" onPress={ handleSignIn }/>
                     </View>
-                    <TouchableOpacity>
-                        <AppText style={styles.passwordCheckText}>Forgot your password?</AppText>
-                    </TouchableOpacity>
+                    <AppTextButton onPress={()=>navigation.navigate('ForgotPassword')} text="Forgot your password?" style={{flex: 0.15, marginTop: 20}}/>
+                    
                     </KeyboardAvoidingView>     
                 </Animatable.View>
                 
@@ -242,15 +249,6 @@ const styles = StyleSheet.create({
         flex:1,
         height: null,
         width: null,
-        
-    },
-    passwordCheckText:{
-        opacity: 0.7,
-        color: AppColors.secondaryColor,
-        textDecorationLine: 'underline',
-        alignSelf: 'center',
-        fontSize: 16,
-        marginTop: -20,
         
     },
     passwordHeading:{

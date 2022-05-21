@@ -6,23 +6,26 @@ import AppColors from '../config/AppColors';
 import AppFonts from '../config/AppFonts';
 
 //Alternative custom text input component with with a rounded, background colour design intended for input fields of creating a new image
-function AppTextInputAlt({icon, ...otherProps}) {
+function AppTextInputAlt({icon, color, ...otherProps}) {
     return (
        <View style = {styles.container}>
-           {icon && <MaterialCommunityIcons name = {icon} size ={22}/>}
+           {icon && <MaterialCommunityIcons name = {icon} color = {color?color: AppColors.black} size ={22}/>}
            <TextInput style ={styles.textInput} {...otherProps}/>
        </View>
     );
 }
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: AppColors.otherColor_4,
+        backgroundColor: AppColors.otherColor_2,
         flexDirection: 'row',
-        borderRadius: 25,
+        borderRadius: 5,
         padding: 10,
-       marginVertical: 20,
-       // paddingLeft: 20,
+        marginVertical: 20,
+        //marginLeft: 20,
+        //marginRight: 20,
         width: '100%',
+        justifyContent: 'center',
+        alignItems : 'center',
         
     },
 

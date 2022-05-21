@@ -17,6 +17,7 @@ import AppFonts from '../config/AppFonts';
 import AppIcon from '../components/AppIcon';
 import AppBackButton from '../components/AppBackButton';
 import { auth } from '../config/dataHandler/firebaseDataHandler';
+import AppTextButton from '../components/AppTextButton';
 
 
 
@@ -32,6 +33,7 @@ const schema = yup.object().shape(
 );
 
 function RegisterScreen({navigation}) {
+    window.newUserName = name;
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -103,6 +105,7 @@ function RegisterScreen({navigation}) {
     }, [])
 
     const handleRegister = () => {
+        auth.currentUser.displayName.
         auth.createUserWithEmailAndPassword(email, password).then(userDetails => {
             const user = userDetails.user;
             console.log("Registered as:",user.email);
@@ -174,7 +177,7 @@ function RegisterScreen({navigation}) {
                     color={AppColors.secondaryColor}
                     autoCapitalize="none"
                     autoCorrect={false}
-                    icon = "email"
+                    icon = "account"
                     placeholder="Name"
                     textContentType="name"
                     onBlur = {() => setFieldTouched("name")}
@@ -221,12 +224,7 @@ function RegisterScreen({navigation}) {
                     <View style = {styles.buttonContainer}>
                         <AppButton children="REGISTER" onPress={ handleRegister}/>
                     </View>
-                    <TouchableOpacity onPress={()=>navigation.navigate('Eula')}>
-                        <View style={{flex:1}}>
-                            <AppText style={styles.tocText}>By signing up you agree to our Terms of Use</AppText>
-
-                        </View>
-                    </TouchableOpacity>
+                    <AppTextButton onPress={()=>navigation.navigate('Eula')} text="By signing up you agree to our Terms of Use"/>
                     </KeyboardAwareScrollView>
                 </Animatable.View>
                 
@@ -302,15 +300,15 @@ const styles = StyleSheet.create({
         color: AppColors.black,
         
     },
-    tocText:{
-        opacity: 0.7,
-        color: AppColors.secondaryColor,
-        textDecorationLine: 'underline',
-        alignSelf: 'center',
-        fontSize: 16,
-        marginTop: -20,
+    // tocText:{
+    //     opacity: 0.7,
+    //     color: AppColors.secondaryColor,
+    //     textDecorationLine: 'underline',
+    //     alignSelf: 'center',
+    //     fontSize: 16,
+    //     marginTop: -20,
         
-    },
+    // },
     welcomeLogoContainer:{
         flex:1,
         
