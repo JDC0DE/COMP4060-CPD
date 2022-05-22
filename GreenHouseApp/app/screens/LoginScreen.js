@@ -96,7 +96,7 @@ function LoginScreen({}) {
                 }).catch((error)=>{
                     console.log(error);
                 });
-                navigation.navigate("Listing")
+                navigation.navigate("Lis")
             }
         })
         return stopListener

@@ -22,10 +22,10 @@ import ListingScreen from './app/screens/ListingScreen';
 
 export default function App() {
   return (
-  //  <NavigationContainer>
-  //     <AuthNavigator/>
-  //  </NavigationContainer>
-   <ListingScreen></ListingScreen>
+   <NavigationContainer>
+      <AuthNavigator/>
+   </NavigationContainer>
+   //<ListingScreen></ListingScreen>
   //<ForgotPasswordScreen></ForgotPasswordScreen>
   //<NotificationsScreen></NotificationsScreen>
   //<LoginScreen></LoginScreen>

@@ -19,39 +19,40 @@ import AppText from '../components/AppText';
 const initialNotifications = [
     {
         id: 1,
-        title: "Test1",
-        comment: "Test comment",
+        title: "Bob",
+        comment: "Great flowers",
         image: require('../assets/headshots/Headshot1.png'),
         iconComponent: null,
     
     },
     {
         id: 2,
-        title: "Test1",
-        comment: "Test comment",
+        title: "Zannie",
+        comment: "Great pots!!!!!",
         image: require('../assets/headshots/Headshot2.png'),
         iconComponent: null,
         
     },
     {
         id: 3,
-        title: "Test1",
-        comment: "Test comment",
+        title: "Jill",
+        comment: "BEST! Roses!",
         image: require('../assets/headshots/Headshot3.png'),
         iconComponent: null,
       
     },
     {
         id: 4,
-        title: "Test1",
-        comment: "Test comment",
+        title: "Bazza",
+        comment: "Fine addition!",
         image: null,
         iconComponent: <AppIcon name = "account-outline" size={75} iconColor={AppColors.primaryColor} backgroundColor={AppColors.otherColor_2} position={10}/>,
         
     },
 ]
 
-function NotificationsScreen({navigation}) {
+function NotificationsScreen({}) {
+    const navigation = useNavigation();
     const [notifications, setNotifications] = useState(initialNotifications); //destructuring state variable,hook array to grab 1st two elements of array
     const [refreshing, setRefreshing] = useState(false);
     const [display, setDisplay] = useState(initialNotifications);
@@ -62,7 +63,7 @@ function NotificationsScreen({navigation}) {
     }
     return (
         <AppScreen style={styles.container} backgroundColor={AppColors.otherColor_3} barStyle={"dark-content"}>
-            <AppBackButton  navigation={navigation} destination={'Listing'} iconColor={AppColors.black}/>
+            <AppBackButton  onPress={()=>navigation.navigate("Listing")} iconColor={AppColors.black}/>
             <AppText style={styles.titleText}>Comments</AppText>
             <FlatList
             data={notifications}

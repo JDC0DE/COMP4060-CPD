@@ -8,4 +8,5 @@ export default{
     otherColor_3: '#F6FFF8', //Mint Cream
     fbColor: '#4267B2', //Facebook Blue Color
     swipeDelete: '#ff5252', //lighter red
+    textColor: '#4A4747', //charcoal
 }

@@ -18,9 +18,9 @@ function AppImage({image}) {
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor: AppColors.otherColor_4,
-        height: 225,
-        width:'95%',
+        //backgroundColor: AppColors.otherColor_3,
+        //height: 225,
+        //width:'100%',
         justifyContent: 'center',
         alignContent: 'center',
         alignSelf: 'center',
@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     },
     image:{
-        height: 225,
-        width:'100%',
-        borderRadius: 20,
+        height: 150,
+        width: 150,
+       // borderRadius: 20,
         margin: 2,
     },
     
