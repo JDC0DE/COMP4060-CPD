@@ -12,10 +12,12 @@ import AppIcon from '../components/AppIcon';
 import AppText from '../components/AppText';
 import AppCard from '../components/AppCard';
 import AppImage from '../components/AppImage';
-import listingData from '../config/data/ListingData';
-import bestSellersData from '../config/data/BestSellersData';
-import categoriesData from '../config/data/CategoriesData';
 import AppCategories from '../components/AppCategories';
+
+import listingData from '../config/data/listingData';
+import bestSellersData from '../config/data/bestSellersData';
+import categoriesData from '../config/data/categoriesData';
+
 
 
 
@@ -30,25 +32,20 @@ useEffect(() => {
 const [refreshing, setRefreshing] = useState(false);
 const [bestSellers, setBestSellers] = useState(bestSellersData);
 const navigation = useNavigation();
-const handleSignOut = () => {
-    auth.signOut().then(() => {
-        navigation.navigate("Welcome")
-    })
-    .catch(error => alert(error.message))
-}
+
     return (
         <AppScreen style={styles.container} backgroundColor={AppColors.otherColor_3} barStyle={"dark-content"}>
-            <KeyboardAwareScrollView>
+            <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
             <View style ={styles.headerContainer}>
                 <View style = {styles.leftSide}>
                     <TouchableOpacity onPress={() => navigation.openDrawer()} activeOpacity={0.8}>
-                        <AppIcon name="menu" size={55} borderRadius={20} backgroundColor={AppColors.otherColor_2} iconColor={AppColors.otherColor_1} elevation={10}/>
+                        <AppIcon name="menu" size={55} borderRadius={20} backgroundColor={AppColors.otherColor_2} iconColor={AppColors.textColor} elevation={10}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.rightSide}>
                     <TouchableOpacity onPress={()=>navigation.navigate("Notifications")}>
                     {/* navigation.navigate("Notifications") */}
-                        <AppIcon name="bell-outline" size={55} borderRadius={15}  iconColor={AppColors.otherColor_1} elevation={0}/>
+                        <AppIcon name="bell-outline" size={55} borderRadius={15}  iconColor={AppColors.textColor} elevation={0}/>
 
                     </TouchableOpacity>
                 </View>
@@ -142,7 +139,8 @@ const styles = StyleSheet.create({
 
     container:{
         backgroundColor: AppColors.otherColor_3,
-        //marginTop: 0,
+        
+        //marginTop: 20,
     },
 
     headerContainer:{
