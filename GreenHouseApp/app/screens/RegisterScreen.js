@@ -136,12 +136,12 @@ function RegisterScreen({navigation}) {
                 
                 
                 <View style={styles.headerContainer}>
-                    {/* <View style ={styles.backContainer}>
-                        <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
+                    <View style ={styles.backContainer}>
+                        {/* <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
                             <AppIcon name={"keyboard-backspace"} iconColor={AppColors.otherColor_2} size={60}/>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         
-                    </View> */}
+                    </View>
                     <AppBackButton onPress={()=> navigation.navigate('Welcome')}/>
                     <View style ={styles.welcomeLogoContainer}>
                         <AppLogo animationType="bounceInDown" style={{height:"100%"}}/>

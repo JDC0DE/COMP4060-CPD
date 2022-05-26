@@ -25,6 +25,7 @@ import categoriesData from '../config/data/categoriesData';
 const {width, height} = Dimensions.get("window");
 
 function ListingScreen({}) {
+    //window.passedItem;
     
 useEffect(() => {
         LogBox.ignoreLogs(['VirtualizedLists should never be nested', 'Encountered two children with the same key, `lsd2:lsd2`']);
@@ -60,17 +61,33 @@ const navigation = useNavigation();
                     keyExtractor={(image)=>image.id}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
-                    renderItem={({item}) => 
+                    renderItem={({item}) => (
+                        window.passedItem = item,
                     <View style={{padding: 20, flex: 2}}>
+                         
                         <AppCard
                         image={item.image}
                         price={item.price}
                         title={item.title}
                         rating={item.rating}
-                        onPress={()=>navigation.navigate("ProductDetails")}
+                        onPress={()=>navigation.navigate("ProductDetails", 
+                            (window.passedItem = item)
+                            //paramsItem: item
+                            // screen: 'Lis',
+                            // params:{
+                            //     screen: 'ProductDetails',
+                            //     params:{
+                            //         paramsItem: item
+                            //     }
+                            // }
+                            
+                        
+                        )}
                         
                         />
                     </View>
+                     
+                    )
                     }
                     refreshing={refreshing}
                     onRefresh={()=>setBestSellers(bestSellersData)}

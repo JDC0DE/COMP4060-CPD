@@ -1,10 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import { auth } from '../config/dataHandler/firebaseDataHandler';
 
 import AppIcon from '../components/AppIcon';
 import AppScreen from '../components/AppScreen';
 import AppColors from '../config/AppColors';
+import AppText from '../components/AppText';
+
+
 
 
 
@@ -18,6 +22,14 @@ function MyAccountScreen({navigation}) {
                 </TouchableOpacity>
             </View>
             <View style={styles.middleContainer}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <AppIcon name = "account-outline" size={60} iconColor={AppColors.primaryColor} backgroundColor={AppColors.otherColor_2} elevation={20}/>
+                        <AppText style={{marginBottom:10, color: AppColors.textColor}}>{auth.currentUser?.displayName} </AppText>
+                        <View style = {{marginTop: 0,flexDirection: 'row', }}>
+                    <AppIcon name = "email" size={40} iconColor={AppColors.otherColor_2} />
+                    <Text style ={styles.emailText}>{auth.currentUser?.email}</Text>
+                        </View>
+                </View>
                 
 
             </View>

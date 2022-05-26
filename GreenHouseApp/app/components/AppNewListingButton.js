@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, TouchableOpacity, Modal, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -16,52 +16,55 @@ import AppButton from './AppButton';
 
 function AppNewListingButton({onPress}) {
         
-        // const [modalVisible, setModalVisible] = useState(onPress? true : false);
-        // const [name, setName] = useState("");
-        // const [description, setDescription] = useState("");
-        // const [price, setPrice] = useState("");
-        // const[image, setImage] = useState(null);
         
-        // const [nameError, setNameError] = useState("");
-        // const [descriptionError, setDescriptionError] = useState("");
-        // const [priceError, setPriceError] = useState("")
-        // const[imageError, setImageError]=useState("");
+        const [modalVisible, setModalVisible] = useState(onPress?true:false);
+        const [name, setName] = useState("");
+        const [description, setDescription] = useState("");
+        const [price, setPrice] = useState("");
+        const[image, setImage] = useState(null);
         
-        // let openImagePickerAsync = async () => {
-        //     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        const [nameError, setNameError] = useState("");
+        const [descriptionError, setDescriptionError] = useState("");
+        const [priceError, setPriceError] = useState("")
+        const[imageError, setImageError]=useState("");
+
         
-        //     if (permissionResult.granted === false) {
-        //       alert("Permission to access camera roll is required!");
-        //       return;
-        //     }
         
-        //     let pickerResult = await ImagePicker.launchImageLibraryAsync();
+        let openImagePickerAsync = async () => {
+            let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
         
-        //     if (pickerResult.cancelled === true) {
-        //         return;
-        //       }
+            if (permissionResult.granted === false) {
+              alert("Permission to access camera roll is required!");
+              return;
+            }
         
-        //     setImage({path: pickerResult.uri});
-        //     console.log(pickerResult);
-        //   }
+            let pickerResult = await ImagePicker.launchImageLibraryAsync();
         
-        //   const doErrorCheck = () => { 
-        //     setNameError(name.length>0?" ": "Please set a valid name");
-        //     setDescriptionError(description.length>0?" ": "Please set a valid description");
-        //     setPriceError(price.length>0 && isNaN(price) ?" ": "Please set a valid price");
-        //     setImageError(image?"": "Please pick an image");
-        //     return((name.length>0) && (description.length>0) && (price.length>0) && (image)? true:false);
-        // }
+            if (pickerResult.cancelled === true) {
+                return;
+              }
+        
+            setImage({path: pickerResult.uri});
+            console.log(pickerResult);
+          }
+        
+          const doErrorCheck = () => { 
+            setNameError(name.length>0?" ": "Please set a valid name");
+            setDescriptionError(description.length>0?" ": "Please set a valid description");
+            setPriceError(price.length>0 && isNaN(price) ?" ": "Please set a valid price");
+            setImageError(image?"": "Please pick an image");
+            return((name.length>0) && (description.length>0) && (price.length>0) && (image)? true:false);
+        }
     return (
         <>
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={()=> setModalVisible(onPress)}>
             <View style ={styles.conatiner}>
                 <AppIcon name={'plus'} size={100} iconColor={AppColors.otherColor_2}/>
             </View>
         </TouchableOpacity>
 
-        {/* <Modal visible={modalVisible} animationType={"slide"}>
-            <AppScreen style = {{borderRadius:20, marginTop: 0, backgroundColor: AppColors.white}}>
+        <Modal visible={modalVisible} animationType={"slide"}>
+            <AppScreen style = {{borderRadius:20, marginTop: 0, backgroundColor: AppColors.otherColor_3, padding: 10}}>
                 <AppText style={{textAlign:'center' ,color: '#1ac6ff', fontWeight: 'bold', fontSize: 15, fontFamily: AppFonts.targetOs}} onPress={() => setModalVisible(false)}>Close</AppText>
                 <AppTextInputAlt 
                 icon = "rename-box"
@@ -74,7 +77,7 @@ function AppNewListingButton({onPress}) {
                 {nameError.length>0? <AppText style={{margin: 5, color: 'red', fontSize: 16, fontFamily: AppFonts.targetOs}}> {nameError}</AppText>: <></>}
 
                 <AppTextInputAlt 
-                icon = "image-text"
+                icon = "image-filter-hdr"
                 placeholder="Product Description"
                 value={description}
                 onChangeText={(inputText) => setDescription(inputText)}
@@ -94,7 +97,7 @@ function AppNewListingButton({onPress}) {
                 {priceError.length>0? <AppText style={{margin: 5, color: 'red', fontSize: 16, fontFamily: AppFonts.targetOs}}> {priceError}</AppText>: <></>}
                 
 
-                <View style={{justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+                <View style={{justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginBottom: 10}}>
                 <TouchableOpacity style ={styles.imageButton} onPress={openImagePickerAsync}>
                     <AppIcon name = "image-multiple-outline" size = {80} iconColor={AppColors.otherColor_3} backgroundColor ={AppColors.otherColor_2}></AppIcon>
                     {image && <Image source={{uri: image.path}} style = {{height: 80, width: 80, borderRadius: 10, marginLeft: 20, marginBottom: 10}}/>}
@@ -103,7 +106,7 @@ function AppNewListingButton({onPress}) {
                 {imageError.length>0? <AppText style={{margin: 5, color: 'red', fontSize: 16, fontFamily: AppFonts.targetOs}}> {imageError}</AppText>: <></>}
 
                 </View>
-                <AppButton children={"Create Listing"} onPress={() => {
+                <AppButton children={"CREATE LISTING"} onPress={() => {
                     if(doErrorCheck()){
                         setModalVisible(false);
 
@@ -112,7 +115,7 @@ function AppNewListingButton({onPress}) {
                     }/>
                     
             </AppScreen>
-    </Modal> */}
+    </Modal>
         
         </>
 
