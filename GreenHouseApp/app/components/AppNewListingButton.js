@@ -21,12 +21,12 @@ function AppNewListingButton({onPress}) {
         const [name, setName] = useState("");
         const [description, setDescription] = useState("");
         const [price, setPrice] = useState("");
-        const[image, setImage] = useState(null);
+        const [image, setImage] = useState(null);
         
         const [nameError, setNameError] = useState("");
         const [descriptionError, setDescriptionError] = useState("");
         const [priceError, setPriceError] = useState("");
-        const[imageError, setImageError]=useState("");
+        const [imageError, setImageError]=useState("");
 
         
         
