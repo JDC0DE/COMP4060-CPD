@@ -9,4 +9,5 @@ export default{
     fbColor: '#4267B2', //Facebook Blue Color
     swipeDelete: '#ff5252', //lighter red
     textColor: '#4A4747', //charcoal
+    commentColor: 'rgba(71, 91, 99, 0.4)', //light grey
 }

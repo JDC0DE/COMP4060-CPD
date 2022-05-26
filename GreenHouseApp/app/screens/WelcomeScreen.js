@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Dimensions, TouchableOpacity,ImageBackground, BackHandler, Alert, Platform } from 'react-native';
+import { StyleSheet, View, Image, Dimensions, TouchableOpacity,ImageBackground, BackHandler, Alert, Platform, LogBox } from 'react-native';
 import  Asset from 'expo-asset';
 import AppLoading from 'expo-app-loading'
 import {useNavigation} from '@react-navigation/native';
@@ -108,7 +108,7 @@ export default class WelcomeScreen extends React.Component{
         
     }
 
-    
+  
 
     // GoogleSignin.configure({
     //   webClientId: "1002396336307-o56ae81o2kkt2n350c1rrm9vo8a0p6e4.apps.googleusercontent.com",
@@ -125,9 +125,11 @@ export default class WelcomeScreen extends React.Component{
         ]);
         return true;
       };
+
     
       componentDidMount() {
         BackHandler.addEventListener("hardwareBackPress", this.backAction);
+        LogBox.ignoreLogs(['TypeError: undefined is not an object']);
       }
     
       componentWillUnmount() {

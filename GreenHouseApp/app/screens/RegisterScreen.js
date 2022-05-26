@@ -91,25 +91,33 @@ function RegisterScreen({navigation}) {
         })
     }
 
-    const [name, setName] = useState();
+    const [name, setName] = useState('');
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
-    useEffect(() => {
-        const stopListener = auth.onAuthStateChanged(user => {
-            if (user){
-                navigation.navigate("Login")
-            }
-        })
-        return stopListener
-    }, [])
+    // useEffect(() => {
+    //     const stopListener = auth.onAuthStateChanged(user => {
+    //         if (user){
+    //             navigation.navigate("Login")
+    //         }
+    //     })
+    //     return stopListener
+    // }, [])
 
     const handleRegister = () => {
-        auth.currentUser.displayName.
-        auth.createUserWithEmailAndPassword(email, password).then(userDetails => {
-            const user = userDetails.user;
-            console.log("Registered as:",user.email);
-            navigation.navigate("Login")
+        
+        auth.createUserWithEmailAndPassword(email, password).then((userCredentials) => {
+            if(userCredentials.user){
+                userCredentials.user.updateProfile({
+                    displayName: name
+                }).then((s)=>{
+                    const user = userCredentials.user;
+                    console.log("Registered as:",user.email);
+                    navigation.navigate("Login")
+                })
+            }
+            
+            
         })
         .catch(error => alert(error.message))
     }
@@ -128,12 +136,12 @@ function RegisterScreen({navigation}) {
                 
                 
                 <View style={styles.headerContainer}>
-                    {/* <View style ={styles.backContainer}>
-                        <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
+                    <View style ={styles.backContainer}>
+                        {/* <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
                             <AppIcon name={"keyboard-backspace"} iconColor={AppColors.otherColor_2} size={60}/>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         
-                    </View> */}
+                    </View>
                     <AppBackButton onPress={()=> navigation.navigate('Welcome')}/>
                     <View style ={styles.welcomeLogoContainer}>
                         <AppLogo animationType="bounceInDown" style={{height:"100%"}}/>

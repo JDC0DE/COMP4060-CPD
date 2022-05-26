@@ -25,10 +25,10 @@ const Drawer = createDrawerNavigator();
 const DrawNavigator = () => {
     return(
         
-    <Drawer.Navigator drawerContent={props => <AppDrawer {...props}/>} screenOptions={{drawerInActiveTintColor:AppColors.otherColor_3, drawerActiveTintColor:AppColors.otherColor_3, drawerActiveBackgroundColor: AppColors.otherColor_4, headerShown:false, swipeEnabled:false, drawerLabelStyle:{fontFamily:AppFonts.targetOs, fontSize:13,marginLeft: -15}}}>
+    <Drawer.Navigator drawerContent={props => <AppDrawer {...props}/>} screenOptions={{drawerHideStatusBarOnOpen:false,drawerStyle:{position:'absolute', overflow: 'scroll'},drawerInActiveTintColor:AppColors.otherColor_1, drawerActiveTintColor:AppColors.textColor, drawerActiveBackgroundColor: AppColors.otherColor_2, headerShown:false, swipeEnabled:false, drawerLabelStyle:{fontFamily:AppFonts.targetOs, fontSize:13,marginLeft: -15}}}>
       <Drawer.Screen  name = "Home" component={ListingScreen} options ={{drawerIcon: () => <AppIcon size ={40} name="home" iconColor={AppColors.primaryColor}/>}}/>
-      <Drawer.Screen  name = "My Account" component={MyAccountScreen} options ={{drawerIcon: () => <AppIcon size ={40} name="cog" iconColor={AppColors.primaryColor}/>}}/>
-      <Drawer.Screen  name = "My Listings" component={MyListingsScreen} options ={{drawerIcon: () => <AppIcon size ={40} name="cog" iconColor={AppColors.primaryColor}/>}}/>
+      <Drawer.Screen  name = "My Account" component={MyAccountScreen} options ={{drawerIcon: () => <AppIcon size ={40} name="account-details" iconColor={AppColors.primaryColor}/>}}/>
+      <Drawer.Screen  name = "My Listings" component={MyListingsScreen} options ={{drawerIcon: () => <AppIcon size ={40} name="clipboard-list" iconColor={AppColors.primaryColor}/>}}/>
       <Drawer.Screen  name = "Settings" component={SettingsScreen} options ={{drawerIcon: () => <AppIcon size ={40} name="cog" iconColor={AppColors.primaryColor}/>}}/>
     </Drawer.Navigator>
    

@@ -17,7 +17,7 @@ function SettingsScreen({navigation}) {
         <AppScreen style={styles.container}>
             <View style ={styles.welcomeContainer}>
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                    <AppIcon name = "menu" size={50} iconColor={AppColors.otherColor_3}/>
+                <AppIcon name="menu" size={55} borderRadius={20} backgroundColor={AppColors.otherColor_2} iconColor={AppColors.textColor} elevation={10}/>
 
                 </TouchableOpacity>
 
