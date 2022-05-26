@@ -17,7 +17,7 @@ import AppButton from './AppButton';
 function AppNewListingButton({onPress}) {
         
         
-        const [modalVisible, setModalVisible] = useState(onPress?true:false);
+        const [modalVisible, setModalVisible] = useState(false);
         const [name, setName] = useState("");
         const [description, setDescription] = useState("");
         const [price, setPrice] = useState("");
@@ -25,7 +25,7 @@ function AppNewListingButton({onPress}) {
         
         const [nameError, setNameError] = useState("");
         const [descriptionError, setDescriptionError] = useState("");
-        const [priceError, setPriceError] = useState("")
+        const [priceError, setPriceError] = useState("");
         const[imageError, setImageError]=useState("");
 
         
