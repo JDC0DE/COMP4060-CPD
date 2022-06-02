@@ -11,6 +11,9 @@ import LoginScreen from './app/screens/LoginScreen';
 import RegisterScreen from './app/screens/RegisterScreen';
 import EulaScreen from './app/screens/EulaScreen';
 import NotificationsScreen from './app/screens/NotificationsScreen';
+import ForgotPasswordScreen from './app/screens/ForgotPasswordScreen'
+import ListingScreen from './app/screens/ListingScreen';
+
 
 
 
@@ -19,10 +22,12 @@ import NotificationsScreen from './app/screens/NotificationsScreen';
 
 export default function App() {
   return (
-  //  <NavigationContainer>
-  //     <AuthNavigator/>
-  //  </NavigationContainer>
-  <NotificationsScreen></NotificationsScreen>
+   <NavigationContainer>
+      <AuthNavigator/>
+   </NavigationContainer>
+   //<ListingScreen></ListingScreen>
+  //<ForgotPasswordScreen></ForgotPasswordScreen>
+  //<NotificationsScreen></NotificationsScreen>
   //<LoginScreen></LoginScreen>
   //<RegisterScreen></RegisterScreen>
   //<EulaScreen></EulaScreen>

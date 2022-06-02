@@ -22,7 +22,7 @@ function SplashScreen() {
     },[]);
 
     return (
-        <AppScreen style = {styles.splashContainer} backgroundColor={AppColors.otherColor_2} >
+        <AppScreen style = {styles.splashContainer} backgroundColor={AppColors.otherColor_3} barStyle={'dark-content'}>
             <LottieView 
             source={require('../assets/62761-walking-pothos.json')}
             autoPlay
@@ -38,11 +38,11 @@ function SplashScreen() {
 const styles = StyleSheet.create({
     splashContainer:{
         flex: 1,
-        backgroundColor: AppColors.otherColor_2,
+        backgroundColor: AppColors.otherColor_3,
     },
 
     backgroundColor:{
-        backgroundColor: AppColors.otherColor_2,
+        backgroundColor: AppColors.otherColor_3,
 
     },
     

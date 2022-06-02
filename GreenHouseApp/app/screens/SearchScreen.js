@@ -1,25 +1,28 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import AppButton from '../components/AppButton';
 
 import AppScreen from '../components/AppScreen';
-import AppText from '../components/AppText';
+import AppTextInputAlt from '../components/AppTextInputAlt';
 import AppColors from '../config/AppColors';
 
 
-
-
-function CartScreen(props) {
+function SearchScreen(props) {
     return (
         <AppScreen style={styles.container} backgroundColor={AppColors.otherColor_3} barStyle={"dark-content"}>
             <View style={styles.headerContainer}>
-                <AppText style={styles.text}>Your cart is looking a little empty!</AppText>
+                <View style={styles.searchBar}>
+                    <AppTextInputAlt
+                    icon ={'magnify'}
+                    color={AppColors.commentColor}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    placeholder={"What are you looking for?"}
+                    />
+                </View>
 
             </View>
             <View style={styles.bottomContainer}>
-                <View style={styles.buttonContainer}>
-                    <AppButton children={"BUY NOW"}/>
-                </View>
+                
 
             </View>
             
@@ -46,19 +49,11 @@ const styles = StyleSheet.create({
         marginBottom: 150,
     },
 
-    buttonContainer:{
+    searchBar:{
         justifyContent: 'space-evenly',
         paddingHorizontal: 20,
-        paddingBottom: 20,
+        marginBottom: 30,
     },
-
-    text:{
-        textAlign: 'center',
-        color: AppColors.commentColor,
-        fontStyle: 'italic',
-        fontSize: 17,
-    },
-    
 })
 
-export default CartScreen;
+export default SearchScreen;

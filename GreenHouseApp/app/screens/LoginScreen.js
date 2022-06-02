@@ -14,7 +14,9 @@ import AppTextInput from '../components/AppTextInput';
 import AppColors from '../config/AppColors';
 import AppFonts from '../config/AppFonts';
 import AppIcon from '../components/AppIcon';
-import { auth } from '../config/dataHandler/firebaseDataHandler';
+import { auth, updateProfile } from '../config/dataHandler/firebaseDataHandler';
+import AppBackButton from '../components/AppBackButton';
+import AppTextButton from '../components/AppTextButton';
 
 
 
@@ -25,7 +27,7 @@ const {width, height} = Dimensions.get("window");
 const schema = yup.object().shape(
     {
         email: yup.string().required().email().label("email"),
-        password: yup.string().required().min(5).label("password"),
+        password: yup.string().required().min(6).label("password"),
     }
 );
 
@@ -36,7 +38,8 @@ const schema = yup.object().shape(
 //     );
 // }
 
-function LoginScreen({navigation}) {
+function LoginScreen({}) {
+    const navigation = useNavigation();
 
     const [data, setData] = useState({
         email: '',
@@ -86,7 +89,14 @@ function LoginScreen({navigation}) {
     useEffect(() => {
         const stopListener = auth.onAuthStateChanged(user => {
             if (user){
-                navigation.navigate("Listing")
+                updateProfile(auth.currentUser, {
+                    displayName: window.newUserName
+                }).then(()=> {
+                    console.log(auth.currentUser.displayName);
+                }).catch((error)=>{
+                    console.log(error);
+                });
+                navigation.navigate("Lis")
             }
         })
         return stopListener
@@ -109,11 +119,9 @@ function LoginScreen({navigation}) {
             style={styles.imageContainer}
             >
                 <View style={styles.headerContainer}>
-                    <View style ={styles.backContainer}>
-                        <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
-                            <AppIcon name={"keyboard-backspace"} iconColor={AppColors.otherColor_2} size={60}/>
-                        </TouchableOpacity>
-                    </View>
+                   
+                    <AppBackButton  onPress={()=> navigation.navigate('Welcome')}/>
+                    
                     <View style ={styles.welcomeLogoContainer}>
                         <AppLogo animationType="bounceInDown" style={{height:"100%"}}/>
                     </View>
@@ -182,9 +190,8 @@ function LoginScreen({navigation}) {
                     <View style = {styles.buttonContainer}>
                         <AppButton children="SIGN IN" onPress={ handleSignIn }/>
                     </View>
-                    <TouchableOpacity>
-                        <AppText style={styles.passwordCheckText}>Forgot your password?</AppText>
-                    </TouchableOpacity>
+                    <AppTextButton onPress={()=>navigation.navigate('ForgotPassword')} text="Forgot your password?" style={{flex: 0.15, marginTop: 20}}/>
+                    
                     </KeyboardAvoidingView>     
                 </Animatable.View>
                 
@@ -201,13 +208,6 @@ function LoginScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
-    backContainer:{
-        marginTop: 30,
-        flexDirection: 'row',
-       
-        //marginTop: ,
-    },
-
     buttonContainer:{
         height: height/5,
         justifyContent: 'space-evenly',
@@ -249,15 +249,6 @@ const styles = StyleSheet.create({
         flex:1,
         height: null,
         width: null,
-        
-    },
-    passwordCheckText:{
-        opacity: 0.7,
-        color: AppColors.secondaryColor,
-        textDecorationLine: 'underline',
-        alignSelf: 'center',
-        fontSize: 16,
-        marginTop: -20,
         
     },
     passwordHeading:{

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Image, ImageBackground, Dimensions, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Formik } from 'formik';
@@ -16,6 +16,8 @@ import AppColors from '../config/AppColors';
 import AppFonts from '../config/AppFonts';
 import AppIcon from '../components/AppIcon';
 import AppBackButton from '../components/AppBackButton';
+import { auth } from '../config/dataHandler/firebaseDataHandler';
+import AppTextButton from '../components/AppTextButton';
 
 
 
@@ -26,11 +28,12 @@ const schema = yup.object().shape(
     {
         name: yup.string().required().label("name"),
         email: yup.string().required().email().label("email"),
-        password: yup.string().required().min(5).label("password"),
+        password: yup.string().required().min(6).label("password"),
     }
 );
 
 function RegisterScreen({navigation}) {
+    window.newUserName = name;
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -88,23 +91,33 @@ function RegisterScreen({navigation}) {
         })
     }
 
-    const [name, setName] = useState();
+    const [name, setName] = useState('');
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
-    useEffect(() => {
-        const stopListener = auth.onAuthStateChanged(user => {
-            if (user){
-                navigation.navigate("Login")
-            }
-        })
-        return stopListener
-    }, [])
+    // useEffect(() => {
+    //     const stopListener = auth.onAuthStateChanged(user => {
+    //         if (user){
+    //             navigation.navigate("Login")
+    //         }
+    //     })
+    //     return stopListener
+    // }, [])
 
     const handleRegister = () => {
-        auth.createUserWithEmailAndPassword(email, password).then(userDetails => {
-            const user = userDetails.user;
-            console.log("Registered as:",user.email);
+        
+        auth.createUserWithEmailAndPassword(email, password).then((userCredentials) => {
+            if(userCredentials.user){
+                userCredentials.user.updateProfile({
+                    displayName: name
+                }).then((s)=>{
+                    const user = userCredentials.user;
+                    console.log("Registered as:",user.email);
+                    navigation.navigate("Login")
+                })
+            }
+            
+            
         })
         .catch(error => alert(error.message))
     }
@@ -123,13 +136,13 @@ function RegisterScreen({navigation}) {
                 
                 
                 <View style={styles.headerContainer}>
-                    {/* <View style ={styles.backContainer}>
-                        <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
+                    <View style ={styles.backContainer}>
+                        {/* <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
                             <AppIcon name={"keyboard-backspace"} iconColor={AppColors.otherColor_2} size={60}/>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         
-                    </View> */}
-                    <AppBackButton navigation={navigation} destination={"Welcome"}/>
+                    </View>
+                    <AppBackButton onPress={()=> navigation.navigate('Welcome')}/>
                     <View style ={styles.welcomeLogoContainer}>
                         <AppLogo animationType="bounceInDown" style={{height:"100%"}}/>
                     </View>
@@ -172,7 +185,7 @@ function RegisterScreen({navigation}) {
                     color={AppColors.secondaryColor}
                     autoCapitalize="none"
                     autoCorrect={false}
-                    icon = "email"
+                    icon = "account"
                     placeholder="Name"
                     textContentType="name"
                     onBlur = {() => setFieldTouched("name")}
@@ -219,9 +232,7 @@ function RegisterScreen({navigation}) {
                     <View style = {styles.buttonContainer}>
                         <AppButton children="REGISTER" onPress={ handleRegister}/>
                     </View>
-                    <TouchableOpacity>
-                        <AppText style={styles.tocText}>By signing up you agree to our Terms of Use</AppText>
-                    </TouchableOpacity>
+                    <AppTextButton onPress={()=>navigation.navigate('Eula')} text="By signing up you agree to our Terms of Use"/>
                     </KeyboardAwareScrollView>
                 </Animatable.View>
                 
@@ -297,15 +308,15 @@ const styles = StyleSheet.create({
         color: AppColors.black,
         
     },
-    tocText:{
-        opacity: 0.7,
-        color: AppColors.secondaryColor,
-        textDecorationLine: 'underline',
-        alignSelf: 'center',
-        fontSize: 16,
-        marginTop: -20,
+    // tocText:{
+    //     opacity: 0.7,
+    //     color: AppColors.secondaryColor,
+    //     textDecorationLine: 'underline',
+    //     alignSelf: 'center',
+    //     fontSize: 16,
+    //     marginTop: -20,
         
-    },
+    // },
     welcomeLogoContainer:{
         flex:1,
         

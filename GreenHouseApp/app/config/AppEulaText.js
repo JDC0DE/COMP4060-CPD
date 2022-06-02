@@ -1,4 +1,4 @@
-const AppEulaText = `END USER LICENCE AGREEMENT\n
+const AppEulaText = `\n
 Last updated May 14, 2022\n
 Green House is licensed to You (End-User) by JDCODE Inc, located and registered at 2 George Street, Sydney, New South Wales 2000, Australia ('Licensor'), for use only under the terms of this Licence Agreement. Our VAT number is 46891472806.
 By downloading the Licensed Application from Apple's software distribution platform ('App Store') and Google's software distribution platform ('Play Store'), and any update thereto (as permitted by this Licence Agreement), You indicate that you agree to be bound by all of the terms and conditions of this Licence Agreement, and that You accept this Licence Agreement. App Store and Play Store are referred to in this Licence Agreement as 'Services!
